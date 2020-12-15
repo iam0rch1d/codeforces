@@ -2,6 +2,7 @@
 #include <cstring>
 #include <complex>
 #include <deque>
+#include <iomanip>
 #include <iostream>
 #include <map>
 #include <queue>
@@ -42,7 +43,7 @@ void chmin(T &m, const T q) { m = min(m, q); }
 template<typename T>
 void sort_unique(vector<T> &v) {
     sort(ALL(v));
-    v.erase(unique(v.begin(), v.end()), v.end());
+    v.erase(unique(ALL(v)), v.end());
 }
 
 template<typename T1, typename T2>
@@ -64,18 +65,33 @@ T manhattan(pair<T, T> a, pair<T, T> b) { return abs(b.first - a.first) + abs(b.
 template<typename T>
 T euclidean(pair<T, T> a, pair<T, T> b) { return square(b.first - a.first) + square(b.second - a.second); }
 
-// CONSTANTS
+ll power(ll a, ll p, int mod) {
+    ll ret = 1;
 
-#define INF 987654321
-#define UNKNOWN -1
+    while (p) {
+        if (p % 2 == 0) {
+            a = square(a) % mod;
+            p /= 2;
+        } else {
+            ret = ret * a % mod;
+            p--;
+        }
+    }
 
+    return ret;
+}
+
+// #### CONSTANTS ####
 const int dy[]{0, -1, 0, 1, -1, -1, 1, 1};
 const int dx[]{-1, 0, 1, 0, -1, 1, -1, 1};
 
-// FUNCTIONS
+// ##### GLOVALS #####
 
 
+// #### FUNCTIONS ####
 
+
+// ###### MAIN #######
 int main() {
     //ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
     //cout << fixed << setprecision(10);

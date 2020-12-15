@@ -69,9 +69,10 @@ int main() {
     while (t--) {
         int n;
         string s;
-        bool isFound = false;
 
         cin >> n >> s;
+
+        bool isFound = false;
 
         FOR_(i, 0, 4) {
             if (SUBSTR(s, 0, i - 1) == SUBSTR(string("2020"), 0, i - 1)

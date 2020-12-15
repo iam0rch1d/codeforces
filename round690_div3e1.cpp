@@ -2,6 +2,7 @@
 #include <cstring>
 #include <complex>
 #include <deque>
+#include <iomanip>
 #include <iostream>
 #include <map>
 #include <queue>
@@ -16,6 +17,10 @@ using namespace std;
 
 using ll = long long;
 using pii = pair<int, int>;
+using vi = vector<int>;
+using vll = vector<ll>;
+using vvi = vector<vector<int>>;
+using vstr = vector<string>;
 
 #define ALL(x) x.begin(), x.end()
 #define IALL(x) x.rbegin(), x.rend()
@@ -25,7 +30,10 @@ using pii = pair<int, int>;
 #define IFOR_(i, x, y) for (int i = y; i >= x; i--)
 #define REP(i, x) FOR(i, 0, x)
 #define SUBSTR(s, l, r) s.substr(l, r - l + 1)
-#define DEBUG(x) cerr << "\033[1;35m" << x << "\033[0m\n"
+#define RESET(arr, x) memset(arr, x, sizeof(arr))
+#define PRINT(x) cout << (x) << ' '
+#define PRINTLN(x) cout << (x) << '\n'
+#define DEBUG(x) cerr << "\033[1;35m" << (x) << "\033[0m\n"
 
 template<typename T>
 void chmax(T &m, const T q) { m = max(m, q); }
@@ -36,7 +44,7 @@ void chmin(T &m, const T q) { m = min(m, q); }
 template<typename T>
 void sort_unique(vector<T> &v) {
     sort(ALL(v));
-    v.erase(unique(v.begin(), v.end()), v.end());
+    v.erase(unique(ALL(v)), v.end());
 }
 
 template<typename T1, typename T2>
@@ -58,11 +66,48 @@ T manhattan(pair<T, T> a, pair<T, T> b) { return abs(b.first - a.first) + abs(b.
 template<typename T>
 T euclidean(pair<T, T> a, pair<T, T> b) { return square(b.first - a.first) + square(b.second - a.second); }
 
-#define INF 987654321
+ll power(ll a, ll p, int mod) {
+    ll ret = 1;
 
+    while (p) {
+        if (p % 2 == 0) {
+            a = square(a) % mod;
+            p /= 2;
+        } else {
+            ret = ret * a % mod;
+            p--;
+        }
+    }
+
+    return ret;
+}
+
+// #### CONSTANTS ####
+const int dy[]{0, -1, 0, 1, -1, -1, 1, 1};
+const int dx[]{-1, 0, 1, 0, -1, 1, -1, 1};
+
+#define MAX_N 200001
+
+// ##### GLOVALS #####
+ll dp[MAX_N][3];
+
+// #### FUNCTIONS ####
+
+
+// ###### MAIN #######
 int main() {
-    //ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
+    ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
     //cout << fixed << setprecision(10);
+
+    dp[0][0] = 1;
+
+    FOR(i, 1, MAX_N) {
+        dp[i][0] = 1;
+
+        FOR_(j, 1, min(i, 2)) {
+            dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j];
+        }
+    }
 
     int t;
 
@@ -73,63 +118,24 @@ int main() {
 
         cin >> n;
 
-        vector<int> a(n);
-        int aMax = 0;
-        int s = 0;
+        vll a(n);
 
-        for (int &ai : a) {
+        for (ll &ai : a) {
             cin >> ai;
-
-            chmax(aMax, ai);
-
-            s += ai;
         }
 
-        if (all_of(ALL(a), [aMax](int i) { return i == aMax; })) {
-            cout << "0\n";
+        sort(ALL(a));
 
-            continue;
+        ll ans = 0;
+
+        FOR(i, 0, n) {
+            int left = i + 1;
+            int right = upper_bound(ALL(a), a[i] + 2) - a.begin();
+
+            ans += dp[right - left][2];
         }
 
-        set<int> divisors;
-        int ans = INF;
-
-        divisors.insert(s);
-
-        for (int i = 2; i * i <= s; i++) {
-            if (s % i == 0) {
-                if (i >= aMax) divisors.insert(i);
-
-                if (s / i >= aMax) divisors.insert(s / i);
-            }
-        }
-
-        for (int divisor : divisors) {
-            int left = 0;
-            int right = 0;
-            int sum = a[0];
-            int operations = 0;
-
-            while (true) {
-                if (sum < divisor) sum += a[++right];
-                else if (sum == divisor) {
-                    operations += right - left;
-                    left = ++right;
-
-                    if (left >= n) break;
-
-                    sum = a[left];
-                } else {
-                    operations = INF;
-
-                    break;
-                }
-            }
-
-            chmin(ans, operations);
-        }
-
-        cout << ans << '\n';
+        PRINTLN(ans);
     }
 
     return 0;
