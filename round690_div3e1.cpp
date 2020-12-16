@@ -66,22 +66,6 @@ T manhattan(pair<T, T> a, pair<T, T> b) { return abs(b.first - a.first) + abs(b.
 template<typename T>
 T euclidean(pair<T, T> a, pair<T, T> b) { return square(b.first - a.first) + square(b.second - a.second); }
 
-ll power(ll a, ll p, int mod) {
-    ll ret = 1;
-
-    while (p) {
-        if (p % 2 == 0) {
-            a = square(a) % mod;
-            p /= 2;
-        } else {
-            ret = ret * a % mod;
-            p--;
-        }
-    }
-
-    return ret;
-}
-
 // #### CONSTANTS ####
 const int dy[]{0, -1, 0, 1, -1, -1, 1, 1};
 const int dx[]{-1, 0, 1, 0, -1, 1, -1, 1};
@@ -104,9 +88,7 @@ int main() {
     FOR(i, 1, MAX_N) {
         dp[i][0] = 1;
 
-        FOR_(j, 1, min(i, 2)) {
-            dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j];
-        }
+        FOR_(j, 1, min(i, 2)) dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j];
     }
 
     int t;
@@ -130,9 +112,9 @@ int main() {
 
         FOR(i, 0, n) {
             int left = i + 1;
-            int right = upper_bound(ALL(a), a[i] + 2) - a.begin();
+            int right = upper_bound(ALL(a), a[i] + 2) - 1 - a.begin();
 
-            ans += dp[right - left][2];
+            ans += dp[right - left + 1][2];
         }
 
         PRINTLN(ans);

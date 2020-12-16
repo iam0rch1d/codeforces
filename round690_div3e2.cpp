@@ -66,22 +66,6 @@ T manhattan(pair<T, T> a, pair<T, T> b) { return abs(b.first - a.first) + abs(b.
 template<typename T>
 T euclidean(pair<T, T> a, pair<T, T> b) { return square(b.first - a.first) + square(b.second - a.second); }
 
-ll power(ll a, ll p, int mod) {
-    ll ret = 1;
-
-    while (p) {
-        if (p % 2 == 0) {
-            a = square(a) % mod;
-            p /= 2;
-        } else {
-            ret = ret * a % mod;
-            p--;
-        }
-    }
-
-    return ret;
-}
-
 // #### CONSTANTS ####
 const int dy[]{0, -1, 0, 1, -1, -1, 1, 1};
 const int dx[]{-1, 0, 1, 0, -1, 1, -1, 1};
@@ -94,6 +78,22 @@ ll fact[200001];
 ll ifact[200001];
 
 // #### FUNCTIONS ####
+ll power(ll a, ll p) {
+    ll ret = 1;
+
+    while (p) {
+        if (p % 2 == 0) {
+            a = square(a) % MOD;
+            p /= 2;
+        } else {
+            ret = ret * a % MOD;
+            p--;
+        }
+    }
+
+    return ret;
+}
+
 ll ncr(int n, int r) {
     return n >= r ? fact[n] * ifact[r] % MOD * ifact[n - r] % MOD : 0;
 }
@@ -108,7 +108,7 @@ int main() {
 
     FOR(i, 1, MAX_N) {
         fact[i] = fact[i - 1] * i % MOD;
-        ifact[i] = power(fact[i], MOD - 2, MOD);
+        ifact[i] = power(fact[i], MOD - 2);
     }
 
     int t;
@@ -134,9 +134,9 @@ int main() {
 
         FOR(i, 0, n) {
             int left = i + 1;
-            int right = upper_bound(ALL(a), a[i] + k) - a.begin();
+            int right = upper_bound(ALL(a), a[i] + k) - 1 - a.begin();
 
-            ans = (ans + ncr(right - left, m - 1)) % MOD;
+            ans = (ans + ncr(right - left + 1, m - 1)) % MOD;
         }
 
         PRINTLN(ans);

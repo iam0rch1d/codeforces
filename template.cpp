@@ -65,22 +65,6 @@ T manhattan(pair<T, T> a, pair<T, T> b) { return abs(b.first - a.first) + abs(b.
 template<typename T>
 T euclidean(pair<T, T> a, pair<T, T> b) { return square(b.first - a.first) + square(b.second - a.second); }
 
-ll power(ll a, ll p, int mod) {
-    ll ret = 1;
-
-    while (p) {
-        if (p % 2 == 0) {
-            a = square(a) % mod;
-            p /= 2;
-        } else {
-            ret = ret * a % mod;
-            p--;
-        }
-    }
-
-    return ret;
-}
-
 // #### CONSTANTS ####
 const int dy[]{0, -1, 0, 1, -1, -1, 1, 1};
 const int dx[]{-1, 0, 1, 0, -1, 1, -1, 1};
