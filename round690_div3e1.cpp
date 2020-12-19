@@ -35,6 +35,9 @@ using vstr = vector<string>;
 #define PRINTLN(x) cout << (x) << '\n'
 #define DEBUG(x) cerr << "\033[1;35m" << (x) << "\033[0m\n"
 
+const int dy[]{0, -1, 0, 1, -1, -1, 1, 1};
+const int dx[]{-1, 0, 1, 0, -1, 1, -1, 1};
+
 template<typename T>
 void chmax(T &m, const T q) { m = max(m, q); }
 
@@ -67,9 +70,6 @@ template<typename T>
 T euclidean(pair<T, T> a, pair<T, T> b) { return square(b.first - a.first) + square(b.second - a.second); }
 
 // #### CONSTANTS ####
-const int dy[]{0, -1, 0, 1, -1, -1, 1, 1};
-const int dx[]{-1, 0, 1, 0, -1, 1, -1, 1};
-
 #define MAX_N 200001
 
 // ##### GLOVALS #####

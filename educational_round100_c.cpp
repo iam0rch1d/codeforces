@@ -18,7 +18,6 @@ using namespace std;
 using ll = long long;
 using pii = pair<int, int>;
 using vi = vector<int>;
-using vll = vector<ll>;
 using vvi = vector<vector<int>>;
 using vstr = vector<string>;
 
@@ -34,9 +33,6 @@ using vstr = vector<string>;
 #define PRINT(x) cout << (x) << ' '
 #define PRINTLN(x) cout << (x) << '\n'
 #define DEBUG(x) cerr << "\033[1;35m" << (x) << "\033[0m\n"
-
-const int dy[]{0, -1, 0, 1, -1, -1, 1, 1};
-const int dx[]{-1, 0, 1, 0, -1, 1, -1, 1};
 
 template<typename T>
 void chmax(T &m, const T q) { m = max(m, q); }
@@ -70,32 +66,25 @@ template<typename T>
 T euclidean(pair<T, T> a, pair<T, T> b) { return square(b.first - a.first) + square(b.second - a.second); }
 
 // #### CONSTANTS ####
-#define MAX_N 200001
-#define MOD 1000000007
+#define MAX_N 100001
+#define INF 0xffffffff
 
 // ##### GLOVALS #####
-ll fact[200001];
-ll ifact[200001];
+ll t[MAX_N];
+ll x[MAX_N];
 
 // #### FUNCTIONS ####
-ll power(ll a, ll p) {
-    ll ret = 1;
-
-    while (p) {
-        if (p % 2 == 0) {
-            a = square(a) % MOD;
-            p /= 2;
-        } else {
-            ret = ret * a % MOD;
-            p--;
-        }
-    }
-
-    return ret;
+ll signOf(ll a) {
+    return a > 0 ? 1 : a < 0 ? -1 : 0;
 }
 
-ll ncr(int n, int r) {
-    return n >= r ? fact[n] * ifact[r] % MOD * ifact[n - r] % MOD : 0;
+bool isSuccessful(ll xi, ll slope, ll t0, ll x0, ll t1, ll t2) {
+    ll x1 = slope * (t1 - t0) + x0;
+    ll x2 = slope * (t2 - t0) + x0;
+
+    if (x1 > x2) swap(x1, x2);
+
+    return xi >= x1 && xi <= x2;
 }
 
 // ###### MAIN #######
@@ -103,40 +92,36 @@ int main() {
     ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
     //cout << fixed << setprecision(10);
 
-    fact[0] = 1;
-    ifact[0] = 1;
+    int tc;
 
-    FOR(i, 1, MAX_N) {
-        fact[i] = fact[i - 1] * i % MOD;
-        ifact[i] = power(fact[i], MOD - 2);
-    }
+    cin >> tc;
 
-    int t;
-
-    cin >> t;
-
-    while (t--) {
+    while (tc--) {
         int n;
-        int m;
-        int k;
 
-        cin >> n >> m >> k;
+        cin >> n;
 
-        vll a(n);
+        REP(i, n) cin >> t[i] >> x[i];
 
-        for (ll &ai : a) {
-            cin >> ai;
-        }
+        t[n] = INF;
 
-        sort(ALL(a));
-
-        ll ans = 0;
+        int ans = 0;
+        ll t0Start = -1;
+        ll x0Start = 0;
+        ll t0Finish = -1;
+        ll x0Finish = 0;
+        ll slope = 0;
 
         FOR(i, 0, n) {
-            int left = i + 1;
-            int right = upper_bound(ALL(a), a[i] + k) - 1 - a.begin();
+            if (t[i] >= t0Finish) {
+                t0Start = t[i];
+                x0Start = x0Finish;
+                t0Finish = t0Start + abs(x[i] - x0Start);
+                x0Finish = x[i];
+                slope = signOf(x0Finish - x0Start);
+            }
 
-            ans = (ans + ncr(right - left + 1, m - 1)) % MOD;
+            ans += isSuccessful(x[i], slope, t0Start, x0Start, t[i], min(t[i + 1], t0Finish));
         }
 
         PRINTLN(ans);

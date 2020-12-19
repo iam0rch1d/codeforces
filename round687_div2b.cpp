@@ -67,12 +67,11 @@ int main() {
     while (t--) {
         int n;
         int k;
-        vector<int> colors;
-        int minPaintCount = 1234567;
 
         cin >> n >> k;
 
         vector<int> c(n);
+        vector<int> colors;
 
         for (int &ci : c) {
             cin >> ci;
@@ -81,6 +80,8 @@ int main() {
         }
 
         sort_unique(colors);
+
+        int ans = 1234567;
 
         for (int color : colors) {
             vector<int> cTemp(c);
@@ -96,10 +97,10 @@ int main() {
                 }
             }
 
-            chmin(minPaintCount, paintCount);
+            chmin(ans, paintCount);
         }
 
-        cout << minPaintCount << '\n';
+        cout << ans << '\n';
     }
 
     return 0;

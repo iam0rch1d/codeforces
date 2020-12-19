@@ -66,8 +66,7 @@ template<typename T>
 T euclidean(pair<T, T> a, pair<T, T> b) { return square(b.first - a.first) + square(b.second - a.second); }
 
 // #### CONSTANTS ####
-const int dy[]{0, -1, 0, 1, -1, -1, 1, 1};
-const int dx[]{-1, 0, 1, 0, -1, 1, -1, 1};
+
 
 // ##### GLOVALS #####
 
@@ -80,11 +79,11 @@ int main() {
     //ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
     //cout << fixed << setprecision(10);
 
-    int t;
+    int tc;
 
-    cin >> t;
+    cin >> tc;
 
-    while (t--) {
+    while (tc--) {
 
     }
 
