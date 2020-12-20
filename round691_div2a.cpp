@@ -18,6 +18,7 @@ using namespace std;
 using ll = long long;
 using pii = pair<int, int>;
 using vi = vector<int>;
+using vll = vector<ll>;
 using vvi = vector<vector<int>>;
 using vstr = vector<string>;
 

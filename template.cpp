@@ -18,9 +18,12 @@ using namespace std;
 using ll = long long;
 using pii = pair<int, int>;
 using vi = vector<int>;
+using vll = vector<ll>;
 using vvi = vector<vector<int>>;
 using vstr = vector<string>;
 
+#define F first
+#define S second
 #define ALL(x) x.begin(), x.end()
 #define IALL(x) x.rbegin(), x.rend()
 #define FOR(i, x, y) for (int i = x; i < y; i++)
@@ -39,6 +42,12 @@ void chmax(T &m, const T q) { m = max(m, q); }
 
 template<typename T>
 void chmin(T &m, const T q) { m = min(m, q); }
+
+template<typename T>
+void chmodadd(T &x, T q, T mod) { x = (x + q) % mod; }
+
+template<typename T>
+T modmul(T x, T y, T mod) { return x * y % mod; }
 
 template<typename T>
 void sort_unique(vector<T> &v) {
