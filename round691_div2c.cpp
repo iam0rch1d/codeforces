@@ -90,13 +90,13 @@ int main() {
 
     REP(i, n) cin >> a[i];
 
-    ll aDifferenceGcd = 0;
+    ll adGcd = 0;
 
-    FOR(i, 1, n - 1) aDifferenceGcd = __gcd(aDifferenceGcd, abs(a[i] - a[i - 1]));
+    FOR(i, 1, n) adGcd = __gcd(adGcd, abs(a[i] - a[i - 1]));
 
     REP(i, m) cin >> b[i];
 
-    REP(i, m) PRINT(__gcd(aDifferenceGcd, a[0] + b[i]));
+    REP(i, m) PRINT(__gcd(adGcd, a[0] + b[i]));
 
     PRINTLN("");
 
