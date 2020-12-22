@@ -17,8 +17,12 @@ using namespace std;
 
 using ll = long long;
 using pii = pair<int, int>;
+using pll = pair<ll, ll>;
+using vb = vector<bool>;
 using vi = vector<int>;
 using vll = vector<ll>;
+using vpii = vector<pii>;
+using vpll = vector<pll>;
 using vvi = vector<vector<int>>;
 using vstr = vector<string>;
 
@@ -28,7 +32,7 @@ using vstr = vector<string>;
 #define IALL(x) x.rbegin(), x.rend()
 #define FOR(i, x, y) for (int i = x; i < y; i++)
 #define FOR_(i, x, y) for (int i = x; i <= y; i++)
-#define IFOR(i, x, y) for (int i = y; i > x; i--)
+#define IFOR(i, x, y) for (int i = y - 1; i >= x; i--)
 #define IFOR_(i, x, y) for (int i = y; i >= x; i--)
 #define REP(i, x) FOR(i, 0, x)
 #define SUBSTR(s, l, r) s.substr(l, r - l + 1)
@@ -44,35 +48,22 @@ template<typename T>
 void chmin(T &m, const T q) { m = min(m, q); }
 
 template<typename T>
-void chmodadd(T &x, T q, T mod) { x = (x + q) % mod; }
-
-template<typename T>
-T modmul(T x, T y, T mod) { return x * y % mod; }
-
-template<typename T>
-void sort_unique(vector<T> &v) {
-    sort(ALL(v));
-    v.erase(unique(ALL(v)), v.end());
-}
+void sort_unique(vector<T> &v) { sort(ALL(v)); v.erase(unique(ALL(v)), v.end()); }
 
 template<typename T1, typename T2>
-pair<T1, T2> operator+(const pair<T1, T2> &l, const pair<T1, T2> &r) {
-    return make_pair(l.first + r.first, l.second + r.second);
-}
+pair<T1, T2> operator+(const pair<T1, T2> &l, const pair<T1, T2> &r) { return {l.F + r.F, l.S + r.S}; }
 
 template<typename T1, typename T2>
-pair<T1, T2> operator-(const pair<T1, T2> &l, const pair<T1, T2> &r) {
-    return make_pair(l.first - r.first, l.second - r.second);
-}
+pair<T1, T2> operator-(const pair<T1, T2> &l, const pair<T1, T2> &r) { return {l.F - r.F, l.S - r.S}; }
 
 template<typename T>
 T square(T x) { return x * x; }
 
 template<typename T>
-T manhattan(pair<T, T> a, pair<T, T> b) { return abs(b.first - a.first) + abs(b.second - a.second); }
+T manhattan(pair<T, T> a, pair<T, T> b) { return abs(b.F - a.F) + abs(b.S - a.S); }
 
 template<typename T>
-T euclidean(pair<T, T> a, pair<T, T> b) { return square(b.first - a.first) + square(b.second - a.second); }
+T euclidean(pair<T, T> a, pair<T, T> b) { return square(b.F - a.F) + square(b.S - a.S); }
 
 // #### CONSTANTS ####
 

@@ -17,11 +17,17 @@ using namespace std;
 
 using ll = long long;
 using pii = pair<int, int>;
+using pll = pair<ll, ll>;
+using vb = vector<bool>;
 using vi = vector<int>;
 using vll = vector<ll>;
+using vpii = vector<pii>;
+using vpll = vector<pll>;
 using vvi = vector<vector<int>>;
 using vstr = vector<string>;
 
+#define F first
+#define S second
 #define ALL(x) x.begin(), x.end()
 #define IALL(x) x.rbegin(), x.rend()
 #define FOR(i, x, y) for (int i = x; i < y; i++)
@@ -48,24 +54,19 @@ void sort_unique(vector<T> &v) {
 }
 
 template<typename T1, typename T2>
-pair<T1, T2> operator+(const pair<T1, T2> &l, const pair<T1, T2> &r) {
-    return make_pair(l.first + r.first, l.second + r.second);
-}
+pair<T1, T2> operator+(const pair<T1, T2> &l, const pair<T1, T2> &r) { return {l.F + r.F, l.S + r.S}; }
 
 template<typename T1, typename T2>
-pair<T1, T2> operator-(const pair<T1, T2> &l, const pair<T1, T2> &r) {
-    return make_pair(l.first - r.first, l.second - r.second);
-}
+pair<T1, T2> operator-(const pair<T1, T2> &l, const pair<T1, T2> &r) { return {l.F - r.F, l.S - r.S}; }
 
 template<typename T>
 T square(T x) { return x * x; }
 
 template<typename T>
-T manhattan(pair<T, T> a, pair<T, T> b) { return abs(b.first - a.first) + abs(b.second - a.second); }
+T manhattan(pair<T, T> a, pair<T, T> b) { return abs(b.F - a.F) + abs(b.S - a.S); }
 
 template<typename T>
-T euclidean(pair<T, T> a, pair<T, T> b) { return square(b.first - a.first) + square(b.second - a.second); }
-
+T euclidean(pair<T, T> a, pair<T, T> b) { return square(b.F - a.F) + square(b.S - a.S); }
 // #### CONSTANTS ####
 
 
@@ -80,25 +81,37 @@ int main() {
     //ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
     //cout << fixed << setprecision(10);
 
-    int n;
-    int m;
+    int tc;
 
-    cin >> n >> m;
+    cin >> tc;
 
-    vll a(n);
-    vll b(m);
+    while (tc--) {
+        ll n;
 
-    REP(i, n) cin >> a[i];
+        cin >> n;
 
-    ll adGcd = 0;
+        ll ans = n;
 
-    FOR(i, 1, n) adGcd = __gcd(adGcd, abs(a[i] - a[i - 1]));
+        while (true) {
+            ll ansTemp = ans;
+            vector<bool> digits(10, false);
 
-    REP(i, m) cin >> b[i];
+            while (ansTemp) {
+                digits[ansTemp % 10] = true;
 
-    REP(i, m) PRINT(__gcd(adGcd, a[0] + b[i]));
+                ansTemp /= 10;
+            }
 
-    PRINTLN("");
+            bool isFair = true;
+
+            FOR_(i, 2, 9) if (digits[i] && ans % i) isFair = false;
+
+            if (isFair) break;
+            else ans++;
+        }
+
+        PRINTLN(ans);
+    }
 
     return 0;
 }

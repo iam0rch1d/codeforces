@@ -17,11 +17,17 @@ using namespace std;
 
 using ll = long long;
 using pii = pair<int, int>;
+using pll = pair<ll, ll>;
+using vb = vector<bool>;
 using vi = vector<int>;
 using vll = vector<ll>;
+using vpii = vector<pii>;
+using vpll = vector<pll>;
 using vvi = vector<vector<int>>;
 using vstr = vector<string>;
 
+#define F first
+#define S second
 #define ALL(x) x.begin(), x.end()
 #define IALL(x) x.rbegin(), x.rend()
 #define FOR(i, x, y) for (int i = x; i < y; i++)
@@ -48,29 +54,25 @@ void sort_unique(vector<T> &v) {
 }
 
 template<typename T1, typename T2>
-pair<T1, T2> operator+(const pair<T1, T2> &l, const pair<T1, T2> &r) {
-    return make_pair(l.first + r.first, l.second + r.second);
-}
+pair<T1, T2> operator+(const pair<T1, T2> &l, const pair<T1, T2> &r) { return {l.F + r.F, l.S + r.S}; }
 
 template<typename T1, typename T2>
-pair<T1, T2> operator-(const pair<T1, T2> &l, const pair<T1, T2> &r) {
-    return make_pair(l.first - r.first, l.second - r.second);
-}
+pair<T1, T2> operator-(const pair<T1, T2> &l, const pair<T1, T2> &r) { return {l.F - r.F, l.S - r.S}; }
 
 template<typename T>
 T square(T x) { return x * x; }
 
 template<typename T>
-T manhattan(pair<T, T> a, pair<T, T> b) { return abs(b.first - a.first) + abs(b.second - a.second); }
+T manhattan(pair<T, T> a, pair<T, T> b) { return abs(b.F - a.F) + abs(b.S - a.S); }
 
 template<typename T>
-T euclidean(pair<T, T> a, pair<T, T> b) { return square(b.first - a.first) + square(b.second - a.second); }
+T euclidean(pair<T, T> a, pair<T, T> b) { return square(b.F - a.F) + square(b.S - a.S); }
 
 // #### CONSTANTS ####
 
 
 // ##### GLOVALS #####
-
+int parents[100000];
 
 // #### FUNCTIONS ####
 
@@ -80,25 +82,56 @@ int main() {
     //ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
     //cout << fixed << setprecision(10);
 
-    int n;
-    int m;
+    int tc;
 
-    cin >> n >> m;
+    cin >> tc;
 
-    vll a(n);
-    vll b(m);
+    auto ufFind = [&](int x) {
+        while (parents[x] >= 0) {
+            if (parents[parents[x]] >= 0) parents[x] = parents[parents[x]];
 
-    REP(i, n) cin >> a[i];
+            x = parents[x];
+        }
 
-    ll adGcd = 0;
+        return x;
+    };
 
-    FOR(i, 1, n) adGcd = __gcd(adGcd, abs(a[i] - a[i - 1]));
+    auto ufUnion = [&](int x, int y) -> bool {
+        x = ufFind(x);
+        y = ufFind(y);
 
-    REP(i, m) cin >> b[i];
+        if (x == y) return false;
 
-    REP(i, m) PRINT(__gcd(adGcd, a[0] + b[i]));
+        if (parents[x] > parents[y]) swap(x, y);
 
-    PRINTLN("");
+        parents[x] += parents[y];
+        parents[y] = x;
+
+        return true;
+    };
+
+    while (tc--) {
+        int n;
+        int m;
+
+        RESET(parents, -1);
+
+        cin >> n >> m;
+
+        int ans = m;
+
+        REP(i, m) {
+            int x;
+            int y;
+
+            cin >> x >> y;
+
+            if (x == y) ans--;
+            else if (!ufUnion(x, y)) ans++;
+        }
+
+        PRINTLN(ans);
+    }
 
     return 0;
 }
