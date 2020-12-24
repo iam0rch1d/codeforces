@@ -16,7 +16,7 @@
 using namespace std;
 
 using ll = long long;
-using pii = pair<int, int>;
+using pi = pair<int, int>;
 using vi = vector<int>;
 using vvi = vector<vector<int>>;
 using vstr = vector<string>;
@@ -65,16 +65,6 @@ T manhattan(pair<T, T> a, pair<T, T> b) { return abs(b.first - a.first) + abs(b.
 template<typename T>
 T euclidean(pair<T, T> a, pair<T, T> b) { return square(b.first - a.first) + square(b.second - a.second); }
 
-// #### CONSTANTS ####
-
-
-// ##### GLOVALS #####
-
-
-// #### FUNCTIONS ####
-
-
-// ###### MAIN #######
 int main() {
     //ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
     //cout << fixed << setprecision(10);

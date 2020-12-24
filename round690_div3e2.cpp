@@ -16,7 +16,7 @@
 using namespace std;
 
 using ll = long long;
-using pii = pair<int, int>;
+using pi = pair<int, int>;
 using vi = vector<int>;
 using vll = vector<ll>;
 using vvi = vector<vector<int>>;
@@ -69,15 +69,12 @@ T manhattan(pair<T, T> a, pair<T, T> b) { return abs(b.first - a.first) + abs(b.
 template<typename T>
 T euclidean(pair<T, T> a, pair<T, T> b) { return square(b.first - a.first) + square(b.second - a.second); }
 
-// #### CONSTANTS ####
 #define MAX_N 200001
 #define MOD 1000000007
 
-// ##### GLOVALS #####
 ll fact[200001];
 ll ifact[200001];
 
-// #### FUNCTIONS ####
 ll power(ll a, ll p) {
     ll ret = 1;
 

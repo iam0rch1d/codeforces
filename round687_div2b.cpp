@@ -15,7 +15,7 @@
 using namespace std;
 
 using ll = long long;
-using pii = pair<int, int>;
+using pi = pair<int, int>;
 
 #define ALL(x) x.begin(), x.end()
 #define FOR(i, x, y) for (int i = x; i < y; i++)
