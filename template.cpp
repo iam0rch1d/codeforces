@@ -16,12 +16,12 @@
 using namespace std;
 
 using ll = long long;
-using pi = pair<int, int>;
+using pii = pair<int, int>;
 using pll = pair<ll, ll>;
 using vb = vector<bool>;
 using vi = vector<int>;
 using vll = vector<ll>;
-using vpi = vector<pi>;
+using vpii = vector<pii>;
 using vpll = vector<pll>;
 using vvi = vector<vector<int>>;
 using vstr = vector<string>;

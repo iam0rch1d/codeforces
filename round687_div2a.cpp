@@ -15,7 +15,7 @@
 using namespace std;
 
 using ll = long long;
-using pi = pair<int, int>;
+using pii = pair<int, int>;
 
 #define ALL(x) x.begin(), x.end()
 #define FOR(i, x, y) for (int i = x; i < y; i++)
@@ -72,11 +72,11 @@ int main() {
 
         cin >> n >> m >> r >> c;
 
-        pi ul{1, 1};
-        pi ur{1, m};
-        pi dl{n, 1};
-        pi dr{n, m};
-        pi tunnel{r, c};
+        pii ul{1, 1};
+        pii ur{1, m};
+        pii dl{n, 1};
+        pii dr{n, m};
+        pii tunnel{r, c};
 
         cout << max({manhattan(ul, tunnel), manhattan(ur, tunnel), manhattan(dl, tunnel), manhattan(dr, tunnel)})
              << '\n';

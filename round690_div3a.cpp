@@ -15,7 +15,7 @@
 using namespace std;
 
 using ll = long long;
-using pi = pair<int, int>;
+using pii = pair<int, int>;
 
 #define ALL(x) x.begin(), x.end()
 #define IALL(x) x.rbegin(), x.rend()
