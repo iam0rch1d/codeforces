@@ -80,13 +80,13 @@ int main() {
 
     REP(i, n) cin >> a[i];
 
-    ll adGcd = 0;
+    ll g = 0;
 
-    FOR(i, 1, n) adGcd = __gcd(adGcd, abs(a[i] - a[i - 1]));
+    FOR(i, 1, n) g = __gcd(g, abs(a[i] - a[0]));
 
     REP(i, m) cin >> b[i];
 
-    REP(i, m) PRINT(__gcd(adGcd, a[0] + b[i]));
+    REP(i, m) PRINT(__gcd(g, a[0] + b[i]));
 
     PRINTLN("");
 

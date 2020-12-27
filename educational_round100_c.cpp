@@ -84,7 +84,6 @@ bool isSuccessful(ll xi, ll slope, ll t0, ll x0, ll t1, ll t2) {
     return xi >= x1 && xi <= x2;
 }
 
-// ###### MAIN #######
 int main() {
     ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
     //cout << fixed << setprecision(10);

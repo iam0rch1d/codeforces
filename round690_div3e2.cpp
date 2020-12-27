@@ -95,7 +95,6 @@ ll ncr(int n, int r) {
     return n >= r ? fact[n] * ifact[r] % MOD * ifact[n - r] % MOD : 0;
 }
 
-// ###### MAIN #######
 int main() {
     ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
     //cout << fixed << setprecision(10);

@@ -68,16 +68,6 @@ T manhattan(pair<T, T> a, pair<T, T> b) { return abs(b.F - a.F) + abs(b.S - a.S)
 template<typename T>
 T euclidean(pair<T, T> a, pair<T, T> b) { return square(b.F - a.F) + square(b.S - a.S); }
 
-// #### CONSTANTS ####
-
-
-// ##### GLOVALS #####
-
-
-// #### FUNCTIONS ####
-
-
-// ###### MAIN #######
 int main() {
     //ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
     //cout << fixed << setprecision(10);
