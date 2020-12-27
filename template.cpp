@@ -42,10 +42,10 @@ using vstr = vector<string>;
 #define DEBUG(x) cerr << "\033[1;35m" << (x) << "\033[0m\n"
 
 template<typename T>
-void chmax(T &m, const T q) { m = max(m, q); }
+bool chmax(T &m, T q) { if (m < q) { m = q; return true; } return false; }
 
 template<typename T>
-void chmin(T &m, const T q) { m = min(m, q); }
+bool chmin(T &m, T q) { if (m > q) { m = q; return true; } return false; }
 
 template<typename T>
 void sort_unique(vector<T> &v) { sort(ALL(v)); v.erase(unique(ALL(v)), v.end()); }
