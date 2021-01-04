@@ -18,10 +18,10 @@ using ll = long long;
 using pii = pair<int, int>;
 
 #define ALL(x) x.begin(), x.end()
-#define FOR(i, x, y) for (int i = x; i < y; i++)
-#define FOR_(i, x, y) for (int i = x; i <= y; i++)
-#define IFOR(i, x, y) for (int i = y - 1; i >= x; i--)
-#define IFOR_(i, x, y) for (int i = y; i >= x; i--)
+#define FOR(i, x, y) for (int i = (x); i < (y); i++)
+#define FOR_(i, x, y) for (int i = (x); i <= (y); i++)
+#define IFOR(i, x, y) for (int i = (y) - 1; i >= (x); i--)
+#define IFOR_(i, x, y) for (int i = (y); i >= (x); i--)
 #define REP(i, x) FOR(i, 0, x)
 #define DEBUG(x) cerr << "\033[1;35m" << x << "\033[0m\n"
 

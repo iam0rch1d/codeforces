@@ -17,11 +17,17 @@ using namespace std;
 
 using ll = long long;
 using pii = pair<int, int>;
+using pll = pair<ll, ll>;
+using vb = vector<bool>;
 using vi = vector<int>;
 using vll = vector<ll>;
+using vpii = vector<pii>;
+using vpll = vector<pll>;
 using vvi = vector<vector<int>>;
 using vstr = vector<string>;
 
+#define F first
+#define S second
 #define ALL(x) x.begin(), x.end()
 #define IALL(x) x.rbegin(), x.rend()
 #define FOR(i, x, y) for (int i = (x); i < (y); i++)
@@ -36,35 +42,28 @@ using vstr = vector<string>;
 #define DEBUG(x) cerr << "\033[1;35m" << (x) << "\033[0m\n"
 
 template<typename T>
-void chmax(T &m, const T q) { m = max(m, q); }
+bool chmax(T &m, T q) { if (m < q) { m = q; return true; } return false; }
 
 template<typename T>
-void chmin(T &m, const T q) { m = min(m, q); }
+bool chmin(T &m, T q) { if (m > q) { m = q; return true; } return false; }
 
 template<typename T>
-void sort_unique(vector<T> &v) {
-    sort(ALL(v));
-    v.erase(unique(ALL(v)), v.end());
-}
+void sort_unique(vector<T> &v) { sort(ALL(v)); v.erase(unique(ALL(v)), v.end()); }
 
 template<typename T1, typename T2>
-pair<T1, T2> operator+(const pair<T1, T2> &l, const pair<T1, T2> &r) {
-    return make_pair(l.first + r.first, l.second + r.second);
-}
+pair<T1, T2> operator+(const pair<T1, T2> &l, const pair<T1, T2> &r) { return {l.F + r.F, l.S + r.S}; }
 
 template<typename T1, typename T2>
-pair<T1, T2> operator-(const pair<T1, T2> &l, const pair<T1, T2> &r) {
-    return make_pair(l.first - r.first, l.second - r.second);
-}
+pair<T1, T2> operator-(const pair<T1, T2> &l, const pair<T1, T2> &r) { return {l.F - r.F, l.S - r.S}; }
 
 template<typename T>
 T square(T x) { return x * x; }
 
 template<typename T>
-T manhattan(pair<T, T> a, pair<T, T> b) { return abs(b.first - a.first) + abs(b.second - a.second); }
+T manhattan(pair<T, T> a, pair<T, T> b) { return abs(b.F - a.F) + abs(b.S - a.S); }
 
 template<typename T>
-T euclidean(pair<T, T> a, pair<T, T> b) { return square(b.first - a.first) + square(b.second - a.second); }
+T euclidean(pair<T, T> a, pair<T, T> b) { return square(b.F - a.F) + square(b.S - a.S); }
 
 int main() {
     //ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
@@ -79,20 +78,29 @@ int main() {
 
         cin >> n;
 
-        string r;
-        string b;
+        vi r(n + 1);
+        vi sr(n + 1, 0);
 
-        cin >> r >> b;
+        FOR_(i, 1, n) {
+            cin >> r[i];
 
-        int rWinCount = 0;
-        int bWinCount = 0;
-
-        REP(i, n) {
-            if (r[i] > b[i]) rWinCount++;
-            else if (r[i] < b[i]) bWinCount++;
+            sr[i] = sr[i - 1] + r[i];
         }
 
-        PRINTLN(rWinCount > bWinCount ? "RED" : rWinCount < bWinCount ? "BLUE" : "EQUAL");
+        int m;
+
+        cin >> m;
+
+        vi b(m + 1);
+        vi sb(m + 1, 0);
+
+        FOR_(i, 1, m) {
+            cin >> b[i];
+
+            sb[i] = sb[i - 1] + b[i];
+        }
+
+        PRINTLN(*max_element(ALL(sr)) + *max_element(ALL(sb)));
     }
 
     return 0;
